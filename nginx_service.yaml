@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
+  namespace: jenkins
 spec:
   type: LoadBalancer  # Use NodePort for local Kubernetes clusters like Minikube
   selector:
