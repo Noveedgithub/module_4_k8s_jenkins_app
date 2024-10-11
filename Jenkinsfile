@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG_FILE = 'kubeconfig'  // Reference the kubeconfig secret file ID
+        KUBECONFIG_FILE = 'Kubeconfig'  // Reference the kubeconfig secret file ID
     }
 
     stages {
