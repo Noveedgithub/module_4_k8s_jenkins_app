@@ -41,7 +41,8 @@ pipeline {
                     kubectl apply -f nginx_deployment.yaml
                     kubectl apply -f nginx_service.yaml
                     '''
-            }
+                }
+            } // Correct closing of steps block
         }
     }
 
