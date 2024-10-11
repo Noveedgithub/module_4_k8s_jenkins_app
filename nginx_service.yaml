@@ -4,7 +4,7 @@ metadata:
   name: nginx-service
   namespace: jenkins
 spec:
-  type: NodePort  # Use NodePort for local Kubernetes clusters like Minikube
+  type: LoadBalancer  # Use NodePort for local Kubernetes clusters like Minikube
   selector:
     app: nginx
   ports:
