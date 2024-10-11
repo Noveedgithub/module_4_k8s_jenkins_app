@@ -9,8 +9,8 @@ pipeline {
         stage("Cleanup") {
             steps {
                 // Cleanup any running or stopped containers, and remove all images
-                sh 'docker rm -f $(docker ps -aq) || true'
-                sh 'docker rmi -f $(docker images -q) || true'
+                sh 'docker rm -f $(docker ps -a -q --filter "label=app=noveedwork") || true'
+                sh 'docker rmi -f $(docker images -q --filter "label=app=noveedwork") || true'
             }
         }
         stage("Build Docker Image") {
