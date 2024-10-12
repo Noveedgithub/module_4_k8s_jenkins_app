@@ -2,20 +2,18 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG_FILE = 'Kubeconfig'  // Reference the kubeconfig secret file ID
+        KUBECONFIG_FILE = 'Kubeconfig' 
     }
 
     stages {
         stage("Cleanup") {
             steps {
-                // Cleanup any running or stopped containers, and remove all images
                 sh 'docker rm -f $(docker ps -a -q --filter "label=app=noveedwork") || true'
                 sh 'docker rmi -f $(docker images -q --filter "label=app=noveedwork") || true'
             }
         }
         stage("Build Docker Image") {
             steps {
-                // Build the Docker image
                 sh 'docker build -t noveedwork/activity4:app .'
             }
         }
@@ -23,7 +21,6 @@ pipeline {
         stage("Push Image to Docker Hub") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    // Login and push the Docker image to Docker Hub
                     sh '''
                     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                     docker push docker.io/noveedwork/activity4:app
@@ -42,14 +39,7 @@ pipeline {
                     kubectl apply -f nginx_service.yaml
                     '''
                 }
-            } // Correct closing of steps block
-        }
-    }
-
-    post {
-        always {
-            // Optionally, print the Minikube status at the end of the pipeline
-            sh 'minikube status'
+            } 
         }
     }
 }
