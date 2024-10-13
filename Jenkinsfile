@@ -14,7 +14,8 @@ pipeline {
         }
         stage("Build Docker Image") {
             steps {
-                sh 'docker build -t noveedwork/activity4:app .'
+                sh 'docker build -t noveedwork/activity4:app -f flask/Dockerfile .'
+                sh 'docker build -t noveedwork/activity4:appv2 -f flask_2/Dockerfile .'
             }
         }
 
@@ -24,6 +25,7 @@ pipeline {
                     sh '''
                     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                     docker push docker.io/noveedwork/activity4:app
+                    docker push docker.io/noveedwork/activity4:appv2
                     '''
                 }
             }
