@@ -1,0 +1,1 @@
+Command to update the deployment image - kubectl set image deployment/flask-deployment -n jenkins flask-app=noveedwork/activity4:appv2
