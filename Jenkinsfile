@@ -18,7 +18,14 @@ pipeline {
                 sh 'docker build -t noveedwork/activity4:appv2 -f flask_2/Dockerfile .'
             }
         }
-
+        stage("Run Tests") {
+            steps {
+                sh '''
+                docker run --rm -v $(pwd)/flask:/app noveedwork/activity4:app bash -c "
+                cd /app && python -m unittest discover -s . -p 'test_app.py'"
+                '''
+            }
+        }
         stage("Push Image to Docker Hub") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
