@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-  namespace: Jenkins
+  namespace: jenkins
 spec:
   type: LoadBalancer  # Will need to use the command "minikube tunnel" in another terminal window to get external IP address
   selector:
